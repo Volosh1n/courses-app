@@ -12,7 +12,7 @@ const CourseCard = (props) => {
   };
 
   return (
-    <div className='list-group-item' key={props.course.id}>
+    <div className='list-group-item'>
       <div className='row align-items-center'>
         <div className='col-sm-8'>
           <h2>{props.course.title}</h2>

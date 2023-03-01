@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Button from '../../../../common/Button/Button';
 
 function SearchBar(props) {
   const [nameValue, setNameValue] = useState('');
@@ -7,7 +8,7 @@ function SearchBar(props) {
     const value = event.target.value;
     setNameValue(value);
     if (value.length === 0) {
-      props.searchCourseByTitle(value)();
+      props.searchCourseByTitle(value);
     }
   };
 
@@ -28,7 +29,17 @@ function SearchBar(props) {
           />
         </div>
         <div className='col'>
-          <input type='submit' value='Search' className='btn btn-primary' />
+          <input
+            type='submit'
+            value='Search'
+            className='btn btn-outline-primary'
+          />
+        </div>
+        <div className='col d-flex flex-row-reverse'>
+          <Button
+            onButtonClick={props.handleAddCourseButtonClick}
+            buttonText='Add new course'
+          />
         </div>
       </div>
     </form>
