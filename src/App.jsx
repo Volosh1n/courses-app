@@ -13,8 +13,8 @@ import './App.css';
 
 function App() {
   const [coursesList, setCoursesList] = useState(mockedCoursesList);
+  const [authorsList, setAuthorsList] = useState(mockedAuthorsList);
   const [filteredCoursesList, setFilteredCoursesList] = useState([]);
-  const [authorsList] = useState(mockedAuthorsList);
   const [isAddingNewCourse, setIsAddingNewCourse] = useState(false);
 
   const searchCourseByTitle = (title) => {
@@ -25,8 +25,10 @@ function App() {
     }
   };
 
-  const handleAddCoursesSubmit = (newCourse) => {
+  const handleAddCoursesSubmit = (newCourse, currentAuthors) => {
     setCoursesList([newCourse, ...coursesList]);
+    console.log(currentAuthors);
+    setAuthorsList(currentAuthors);
     setFilteredCoursesList([]);
     setIsAddingNewCourse(false);
   };
@@ -52,6 +54,7 @@ function App() {
             handleAddCourseButtonClick={handleAddCourseButtonClick}
           />
           <Courses
+            authorsList={authorsList}
             coursesList={
               filteredCoursesList.length === 0
                 ? coursesList

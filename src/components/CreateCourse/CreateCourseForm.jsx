@@ -11,8 +11,10 @@ const CreateCourseForm = (props) => {
   const [duration, setDuration] = useState('');
 
   useEffect(() => {
-    setCurrentAuthors(props.currentAuthors);
-  }, [props.currentAuthors]);
+    if (currentAuthors.length === 0) {
+      setCurrentAuthors(props.currentAuthors);
+    }
+  }, []);
 
   const handleAuthorClick = (authorId) => {
     if (selectedAuthors.includes(authorId)) {
@@ -26,7 +28,7 @@ const CreateCourseForm = (props) => {
     setDuration(getCourseDuration(event.target.value, false));
   };
 
-  const handleSubmit = (event) => {
+  const handleCreateCourseSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const newCourse = {
@@ -37,12 +39,23 @@ const CreateCourseForm = (props) => {
       creationDate: getCurrentDate(),
       authors: selectedAuthors,
     };
-    props.handleAddCoursesSubmit(newCourse);
+    props.handleAddCoursesSubmit(newCourse, currentAuthors);
+  };
+
+  const handleCreateAuthorSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const newAuthor = {
+      id: uuidv4(),
+      name: formData.get('author-name'),
+    };
+    setCurrentAuthors([newAuthor, ...currentAuthors]);
   };
 
   return (
-    <div className='container m-3' onSubmit={handleSubmit}>
-      <form id='create-course'>
+    <div className='container m-3'>
+      <form id='create-author' onSubmit={handleCreateAuthorSubmit}></form>
+      <form id='create-course' onSubmit={handleCreateCourseSubmit}>
         <div className='form-group m-3'>
           <label htmlFor='title'>Title</label>
           <input
@@ -66,7 +79,31 @@ const CreateCourseForm = (props) => {
         </div>
 
         <div className='row mt-5'>
-          <div className='col col-md-6'>{/* form for author creation */}</div>
+          <div className='col col-md-6'>
+            <div className='text-center'>
+              <h3>Add author</h3>
+            </div>
+            <div className='form-group m-3'>
+              <label htmlFor='title'>Author name</label>
+              <input
+                type='text'
+                id='author-name'
+                name='author-name'
+                form='create-author'
+                className='form-control'
+                placeholder='Enter author name...'
+                required
+              />
+            </div>
+            <div className='text-center'>
+              <input
+                type='submit'
+                value='Create author'
+                form='create-author'
+                className='btn btn-outline-primary'
+              />
+            </div>
+          </div>
 
           <div className='col col-md-6'>
             <div className='form-group'>

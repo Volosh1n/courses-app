@@ -1,10 +1,9 @@
 import getCourseDuration from '../../../../helpers/getCourseDuration';
 import formatCreationDate from '../../../../helpers/formatCreationDate';
-import { mockedAuthorsList } from '../../../../constants';
 
 const CourseCard = (props) => {
-  const formatAuthors = (author_ids) => {
-    const authorObjects = mockedAuthorsList.filter((author) =>
+  const formatAuthors = (author_ids, authorList) => {
+    const authorObjects = authorList.filter((author) =>
       author_ids.includes(author.id)
     );
     const authorsNames = authorObjects.map((author) => author.name).join(', ');
@@ -20,7 +19,7 @@ const CourseCard = (props) => {
         </div>
         <div className='col-sm-4'>
           <b>Authors: </b>
-          {formatAuthors(props.course.authors)}
+          {formatAuthors(props.course.authors, props.authors)}
           <br />
           <b>Duration: </b>
           {getCourseDuration(props.course.duration)}
