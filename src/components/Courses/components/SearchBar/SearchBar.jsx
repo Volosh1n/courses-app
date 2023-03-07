@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Button from '../../../../common/Button/Button';
+import Input from '../../../../common/Input/Input';
 
 function SearchBar({ searchCourseByTitle, handleAddCourseButtonClick }) {
   const [nameValue, setNameValue] = useState('');
@@ -21,7 +22,7 @@ function SearchBar({ searchCourseByTitle, handleAddCourseButtonClick }) {
     <form onSubmit={handleSubmit} className='m-3'>
       <div className='row'>
         <div className='col'>
-          <input
+          <Input
             type='text'
             placeholder='Enter course name...'
             onChange={handleChange}
@@ -29,7 +30,7 @@ function SearchBar({ searchCourseByTitle, handleAddCourseButtonClick }) {
           />
         </div>
         <div className='col'>
-          <input
+          <Input
             type='submit'
             value='Search'
             className='btn btn-outline-primary'

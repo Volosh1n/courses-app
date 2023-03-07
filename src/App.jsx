@@ -27,7 +27,6 @@ function App() {
 
   const handleAddCoursesSubmit = (newCourse, currentAuthors) => {
     setCoursesList([newCourse, ...coursesList]);
-    console.log(currentAuthors);
     setAuthorsList(currentAuthors);
     setFilteredCoursesList([]);
     setIsAddingNewCourse(false);

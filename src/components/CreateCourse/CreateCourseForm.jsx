@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Button from '../../common/Button/Button';
+import Input from '../../common/Input/Input';
 
 import getCurrentDate from '../../helpers/getCurrentDate';
 import getCourseDuration from '../../helpers/getCourseDuration';
@@ -58,7 +59,7 @@ const CreateCourseForm = ({ authors, handleAddCoursesSubmit }) => {
       <form id='create-course' onSubmit={handleCreateCourseSubmit}>
         <div className='form-group m-3'>
           <label htmlFor='title'>Title</label>
-          <input
+          <Input
             type='text'
             id='title'
             name='title'
@@ -74,6 +75,7 @@ const CreateCourseForm = ({ authors, handleAddCoursesSubmit }) => {
             name='description'
             className='form-control'
             placeholder='Enter description...'
+            maxlength={140}
             required
           />
         </div>
@@ -85,18 +87,17 @@ const CreateCourseForm = ({ authors, handleAddCoursesSubmit }) => {
             </div>
             <div className='form-group m-3'>
               <label htmlFor='title'>Author name</label>
-              <input
-                type='text'
+              <Input
                 id='author-name'
                 name='author-name'
                 form='create-author'
                 className='form-control'
                 placeholder='Enter author name...'
-                required
+                required={true}
               />
             </div>
             <div className='text-center'>
-              <input
+              <Input
                 type='submit'
                 value='Create author'
                 form='create-author'
@@ -136,7 +137,7 @@ const CreateCourseForm = ({ authors, handleAddCoursesSubmit }) => {
                 <h3>Duration</h3>
               </div>
               <label htmlFor='duration'>Duration</label>
-              <input
+              <Input
                 type='number'
                 id='duration'
                 name='duration'
@@ -171,7 +172,7 @@ const CreateCourseForm = ({ authors, handleAddCoursesSubmit }) => {
             )}
           </div>
         </div>
-        <input
+        <Input
           type='submit'
           value='Create course'
           form='create-course'
