@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import Button from '../../../../common/Button/Button';
 
-function SearchBar(props) {
+function SearchBar({ searchCourseByTitle, handleAddCourseButtonClick }) {
   const [nameValue, setNameValue] = useState('');
 
   const handleChange = (event) => {
     const value = event.target.value;
     setNameValue(value);
     if (value.length === 0) {
-      props.searchCourseByTitle(value);
+      searchCourseByTitle(value);
     }
   };
 
   const handleSubmit = (event) => {
-    props.searchCourseByTitle(nameValue);
+    searchCourseByTitle(nameValue);
     event.preventDefault();
   };
 
@@ -37,7 +37,7 @@ function SearchBar(props) {
         </div>
         <div className='col d-flex flex-row-reverse'>
           <Button
-            onButtonClick={props.handleAddCourseButtonClick}
+            onButtonClick={handleAddCourseButtonClick}
             buttonText='Add new course'
           />
         </div>

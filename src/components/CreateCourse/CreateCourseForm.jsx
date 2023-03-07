@@ -5,14 +5,14 @@ import Button from '../../common/Button/Button';
 import getCurrentDate from '../../helpers/getCurrentDate';
 import getCourseDuration from '../../helpers/getCourseDuration';
 
-const CreateCourseForm = (props) => {
+const CreateCourseForm = ({ authors, handleAddCoursesSubmit }) => {
   const [selectedAuthors, setSelectedAuthors] = useState([]);
   const [currentAuthors, setCurrentAuthors] = useState([]);
   const [duration, setDuration] = useState('');
 
   useEffect(() => {
     if (currentAuthors.length === 0) {
-      setCurrentAuthors(props.currentAuthors);
+      setCurrentAuthors(authors);
     }
   }, []);
 
@@ -39,7 +39,7 @@ const CreateCourseForm = (props) => {
       creationDate: getCurrentDate(),
       authors: selectedAuthors,
     };
-    props.handleAddCoursesSubmit(newCourse, currentAuthors);
+    handleAddCoursesSubmit(newCourse, currentAuthors);
   };
 
   const handleCreateAuthorSubmit = (event) => {

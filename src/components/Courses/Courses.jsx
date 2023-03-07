@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
 import CourseCard from './components/CourseCard/CourseCard';
 
-function Courses(props) {
+function Courses({ authors, coursesList }) {
   const [authorsList, setAuthorsList] = useState([]);
 
   useEffect(() => {
-    setAuthorsList(props.authorsList);
+    setAuthorsList(authors);
   }, []);
 
   return (
     <>
       <div className='list-group m-3'>
-        {props.coursesList.map((course) => (
+        {coursesList.map((course) => (
           <CourseCard course={course} authors={authorsList} />
         ))}
       </div>

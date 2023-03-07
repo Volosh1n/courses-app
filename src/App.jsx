@@ -43,7 +43,7 @@ function App() {
       {isAddingNewCourse ? (
         <>
           <CreateCourseForm
-            currentAuthors={authorsList}
+            authors={authorsList}
             handleAddCoursesSubmit={handleAddCoursesSubmit}
           />
         </>
@@ -54,7 +54,7 @@ function App() {
             handleAddCourseButtonClick={handleAddCourseButtonClick}
           />
           <Courses
-            authorsList={authorsList}
+            authors={authorsList}
             coursesList={
               filteredCoursesList.length === 0
                 ? coursesList

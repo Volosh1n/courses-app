@@ -1,13 +1,13 @@
-const Button = (props) => {
+const Button = ({ buttonKey, buttonClassName, onButtonClick, buttonText }) => {
   return (
     <>
       <button
-        key={props.buttonKey || ''}
+        key={buttonKey || ''}
         type='button'
-        className={props.buttonClassName || 'btn btn-outline-primary'}
-        onClick={props.onButtonClick}
+        className={buttonClassName || 'btn btn-outline-primary'}
+        onClick={onButtonClick}
       >
-        {props.buttonText}
+        {buttonText}
       </button>
     </>
   );

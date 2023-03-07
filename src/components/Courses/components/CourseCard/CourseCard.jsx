@@ -1,7 +1,7 @@
 import getCourseDuration from '../../../../helpers/getCourseDuration';
 import formatCreationDate from '../../../../helpers/formatCreationDate';
 
-const CourseCard = (props) => {
+const CourseCard = ({ course, authors }) => {
   const formatAuthors = (author_ids, authorList) => {
     const authorObjects = authorList.filter((author) =>
       author_ids.includes(author.id)
@@ -14,18 +14,18 @@ const CourseCard = (props) => {
     <div className='list-group-item'>
       <div className='row align-items-center'>
         <div className='col-sm-8'>
-          <h2>{props.course.title}</h2>
-          <p>{props.course.description}</p>
+          <h2>{course.title}</h2>
+          <p>{course.description}</p>
         </div>
         <div className='col-sm-4'>
           <b>Authors: </b>
-          {formatAuthors(props.course.authors, props.authors)}
+          {formatAuthors(course.authors, authors)}
           <br />
           <b>Duration: </b>
-          {getCourseDuration(props.course.duration)}
+          {getCourseDuration(course.duration)}
           <br />
           <b>Created: </b>
-          {formatCreationDate(props.course.creationDate)}
+          {formatCreationDate(course.creationDate)}
         </div>
       </div>
     </div>
