@@ -11,7 +11,7 @@ function Courses({ authors, coursesList }) {
   return (
     <div className='list-group m-3'>
       {coursesList.map((course) => (
-        <CourseCard course={course} authors={authorsList} />
+        <CourseCard course={course} authors={authorsList} key={course.id} />
       ))}
     </div>
   );

@@ -20,8 +20,8 @@ const Input = ({
       value={value}
       className={className || ''}
       placeholder={placeholder}
-      minlength={minlength || 3}
-      maxlength={maxlength || 40}
+      minLength={minlength || 3}
+      maxLength={maxlength || 40}
       required={required || false}
       onChange={onChange}
     />

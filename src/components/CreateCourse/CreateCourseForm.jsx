@@ -75,7 +75,7 @@ const CreateCourseForm = ({ authors, handleAddCoursesSubmit }) => {
             name='description'
             className='form-control'
             placeholder='Enter description...'
-            maxlength={140}
+            maxLength={140}
             required
           />
         </div>
@@ -112,7 +112,7 @@ const CreateCourseForm = ({ authors, handleAddCoursesSubmit }) => {
                 <h3>Authors</h3>
               </div>
               {currentAuthors.map((author) => (
-                <div className='row m-3'>
+                <div className='row m-3' key={author.id}>
                   <span className='col'>{author.name}</span>
                   <Button
                     onButtonClick={() => handleAuthorClick(author.id)}
