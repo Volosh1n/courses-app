@@ -12,21 +12,19 @@ const Input = ({
   onChange,
 }) => {
   return (
-    <>
-      <input
-        type={type || 'text'}
-        id={id}
-        name={name}
-        form={form}
-        value={value}
-        className={className || ''}
-        placeholder={placeholder}
-        minlength={minlength || 3}
-        maxlength={maxlength || 40}
-        required={required || false}
-        onChange={onChange}
-      />
-    </>
+    <input
+      type={type || 'text'}
+      id={id}
+      name={name}
+      form={form}
+      value={value}
+      className={className || ''}
+      placeholder={placeholder}
+      minlength={minlength || 3}
+      maxlength={maxlength || 40}
+      required={required || false}
+      onChange={onChange}
+    />
   );
 };
 

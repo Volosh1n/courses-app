@@ -9,13 +9,11 @@ function Courses({ authors, coursesList }) {
   }, []);
 
   return (
-    <>
-      <div className='list-group m-3'>
-        {coursesList.map((course) => (
-          <CourseCard course={course} authors={authorsList} />
-        ))}
-      </div>
-    </>
+    <div className='list-group m-3'>
+      {coursesList.map((course) => (
+        <CourseCard course={course} authors={authorsList} />
+      ))}
+    </div>
   );
 }
 
