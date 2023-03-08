@@ -1,28 +1,28 @@
 const Input = ({
-  type,
+  type = 'text',
   id,
   name,
   form,
   value,
-  className,
+  className = '',
   placeholder,
-  minlength,
-  maxlength,
-  required,
+  minlength = 2,
+  maxlength = 40,
+  required = false,
   onChange,
 }) => {
   return (
     <input
-      type={type || 'text'}
+      type={type}
       id={id}
       name={name}
       form={form}
       value={value}
-      className={className || ''}
+      className={className}
       placeholder={placeholder}
-      minLength={minlength || 3}
-      maxLength={maxlength || 40}
-      required={required || false}
+      minLength={minlength}
+      maxLength={maxlength}
+      required={required}
       onChange={onChange}
     />
   );

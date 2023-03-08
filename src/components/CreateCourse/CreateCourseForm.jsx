@@ -75,6 +75,7 @@ const CreateCourseForm = ({ authors, handleAddCoursesSubmit }) => {
             name='description'
             className='form-control'
             placeholder='Enter description...'
+            minLength={2}
             maxLength={140}
             required
           />
@@ -116,7 +117,6 @@ const CreateCourseForm = ({ authors, handleAddCoursesSubmit }) => {
                   <span className='col'>{author.name}</span>
                   <Button
                     onButtonClick={() => handleAuthorClick(author.id)}
-                    buttonKey={author.id}
                     buttonText='Add author'
                     buttonClassName={`btn ${
                       selectedAuthors.includes(author.id)

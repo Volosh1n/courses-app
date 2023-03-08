@@ -1,11 +1,10 @@
-const Button = ({ buttonKey, buttonClassName, onButtonClick, buttonText }) => {
+const Button = ({
+  buttonClassName = 'btn btn-outline-primary',
+  onButtonClick,
+  buttonText,
+}) => {
   return (
-    <button
-      key={buttonKey || ''}
-      type='button'
-      className={buttonClassName || 'btn btn-outline-primary'}
-      onClick={onButtonClick}
-    >
+    <button type='button' className={buttonClassName} onClick={onButtonClick}>
       {buttonText}
     </button>
   );
