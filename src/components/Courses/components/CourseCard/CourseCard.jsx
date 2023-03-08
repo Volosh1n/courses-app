@@ -17,7 +17,7 @@ const CourseCard = ({ course, authors }) => {
           <h2>{course.title}</h2>
           <p>{course.description}</p>
         </div>
-        <div className='col-sm-4'>
+        <div className='col-sm-4 text-truncate'>
           <b>Authors: </b>
           {formatAuthors(course.authors, authors)}
           <br />
