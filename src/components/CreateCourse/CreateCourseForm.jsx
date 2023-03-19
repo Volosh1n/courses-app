@@ -1,20 +1,27 @@
-import { useState, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import Button from '../../common/Button/Button';
-import Input from '../../common/Input/Input';
+import { useState, useLayoutEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import getCurrentDate from '../../helpers/getCurrentDate';
+import Input from '../../common/Input/Input';
+import Button from '../../common/Button/Button';
+
+import { API_ROUTES } from '../../constants';
 import getCourseDuration from '../../helpers/getCourseDuration';
 
-const CreateCourseForm = ({ authors, handleAddCoursesSubmit }) => {
+const CreateCourseForm = () => {
+  const navigate = useNavigate();
+
   const [selectedAuthors, setSelectedAuthors] = useState([]);
   const [currentAuthors, setCurrentAuthors] = useState([]);
   const [duration, setDuration] = useState('');
 
-  useEffect(() => {
-    if (currentAuthors.length === 0) {
-      setCurrentAuthors(authors);
-    }
+  const getAuthors = async () => {
+    const response = await fetch(API_ROUTES.authorsAll);
+    const authors = await response.json();
+    setCurrentAuthors(authors.result);
+  };
+
+  useLayoutEffect(() => {
+    getAuthors();
   }, []);
 
   const handleAuthorClick = (authorId) => {
@@ -32,30 +39,44 @@ const CreateCourseForm = ({ authors, handleAddCoursesSubmit }) => {
   const handleCreateCourseSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const newCourse = {
-      id: uuidv4(),
+    const newCourseData = {
       title: formData.get('title'),
       description: formData.get('description'),
       duration: formData.get('duration'),
-      creationDate: getCurrentDate(),
       authors: selectedAuthors,
     };
-    handleAddCoursesSubmit(newCourse, currentAuthors);
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: localStorage.getItem('token'),
+    };
+    fetch(API_ROUTES.newCourse, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(newCourseData),
+    })
+      .then((response) => response.json())
+      .then(() => navigate('/'));
   };
 
   const handleCreateAuthorSubmit = (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    const newAuthor = {
-      id: uuidv4(),
-      name: formData.get('author-name'),
+    const newAuthorData = {
+      name: document.querySelector('#author-name').value,
     };
-    setCurrentAuthors([newAuthor, ...currentAuthors]);
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: localStorage.getItem('token'),
+    };
+    fetch(API_ROUTES.newAuthor, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(newAuthorData),
+    }).then((response) => response.json());
+    getAuthors();
   };
 
   return (
-    <div className='container m-3'>
-      <form id='create-author' onSubmit={handleCreateAuthorSubmit}></form>
+    <div className='container mt-3'>
       <form id='create-course' onSubmit={handleCreateCourseSubmit}>
         <div className='form-group m-3'>
           <label htmlFor='title'>Title</label>
@@ -91,17 +112,14 @@ const CreateCourseForm = ({ authors, handleAddCoursesSubmit }) => {
               <Input
                 id='author-name'
                 name='author-name'
-                form='create-author'
                 className='form-control'
                 placeholder='Enter author name...'
-                required={true}
               />
             </div>
             <div className='text-center'>
-              <Input
-                type='submit'
-                value='Create author'
-                form='create-author'
+              <Button
+                buttonText='Create author'
+                onButtonClick={handleCreateAuthorSubmit}
                 className='btn btn-outline-primary'
               />
             </div>
