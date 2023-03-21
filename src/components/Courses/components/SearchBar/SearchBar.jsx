@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import Button from '../../../../common/Button/Button';
 import Input from '../../../../common/Input/Input';
 
-function SearchBar({ searchCourseByTitle, handleAddCourseButtonClick }) {
+function SearchBar({ searchCourseByTitle }) {
   const [nameValue, setNameValue] = useState('');
 
   const handleChange = (event) => {
@@ -14,36 +13,31 @@ function SearchBar({ searchCourseByTitle, handleAddCourseButtonClick }) {
   };
 
   const handleSubmit = (event) => {
-    searchCourseByTitle(nameValue);
     event.preventDefault();
+    searchCourseByTitle(nameValue);
   };
 
   return (
-    <form onSubmit={handleSubmit} className='m-3'>
-      <div className='row'>
-        <div className='col'>
+    <>
+      <div className='col'>
+        <form id='search-course' onSubmit={handleSubmit} className='m-3'>
           <Input
             type='text'
             placeholder='Enter course name...'
             onChange={handleChange}
             className='form-control'
           />
-        </div>
-        <div className='col'>
-          <Input
-            type='submit'
-            value='Search'
-            className='btn btn-outline-primary'
-          />
-        </div>
-        <div className='col d-flex flex-row-reverse'>
-          <Button
-            onButtonClick={handleAddCourseButtonClick}
-            buttonText='Add new course'
-          />
-        </div>
+        </form>
       </div>
-    </form>
+      <div className='col d-flex align-items-center'>
+        <Input
+          type='submit'
+          form='search-course'
+          value='Search'
+          className='btn btn-outline-primary'
+        />
+      </div>
+    </>
   );
 }
 

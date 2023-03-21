@@ -1,20 +1,30 @@
+import { useState, useLayoutEffect } from 'react';
 import getCourseDuration from '../../../../helpers/getCourseDuration';
 import formatCreationDate from '../../../../helpers/formatCreationDate';
+import { API_ROUTES } from '../../../../constants';
+import { Link } from 'react-router-dom';
+import formatAuthors from '../utils/formatAuthors';
 
-const CourseCard = ({ course, authors }) => {
-  const formatAuthors = (author_ids, authorList) => {
-    const authorObjects = authorList.filter((author) =>
-      author_ids.includes(author.id)
-    );
-    const authorsNames = authorObjects.map((author) => author.name).join(', ');
-    return authorsNames;
+const CourseCard = ({ course }) => {
+  const [authors, setAuthors] = useState([]);
+
+  const getAuthors = async () => {
+    const response = await fetch(API_ROUTES.authorsAll);
+    const authors = await response.json();
+    setAuthors(authors.result);
   };
+
+  useLayoutEffect(() => {
+    getAuthors();
+  }, []);
 
   return (
     <div className='list-group-item'>
       <div className='row align-items-center'>
         <div className='col-sm-8'>
-          <h2>{course.title}</h2>
+          <Link to={`/courses/${course.id}`} className='link-secondary'>
+            <h2>{course.title}</h2>
+          </Link>
           <p>{course.description}</p>
         </div>
         <div className='col-sm-4 text-truncate'>
