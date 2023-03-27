@@ -1,8 +1,10 @@
 import { useState, useLayoutEffect } from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import getCourseDuration from '../../../../helpers/getCourseDuration';
 import formatCreationDate from '../../../../helpers/formatCreationDate';
 import { API_ROUTES } from '../../../../constants';
-import { Link } from 'react-router-dom';
 import formatAuthors from '../utils/formatAuthors';
 
 const CourseCard = ({ course }) => {
@@ -40,6 +42,10 @@ const CourseCard = ({ course }) => {
       </div>
     </div>
   );
+};
+
+CourseCard.propTypes = {
+  course: PropTypes.object.isRequired,
 };
 
 export default CourseCard;

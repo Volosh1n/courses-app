@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import Input from '../../../../common/Input/Input';
 
 function SearchBar({ searchCourseByTitle }) {
@@ -40,5 +42,9 @@ function SearchBar({ searchCourseByTitle }) {
     </>
   );
 }
+
+SearchBar.propTypes = {
+  searchCourseByTitle: PropTypes.func.isRequired,
+};
 
 export default SearchBar;
