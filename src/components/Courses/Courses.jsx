@@ -1,21 +1,15 @@
 import { useState, useLayoutEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import CourseCard from './components/CourseCard/CourseCard';
-import { API_ROUTES } from '../../constants';
 import SearchBar from './components/SearchBar/SearchBar';
 import Button from '../../common/Button/Button';
 import filterCoursesByTitle from '../../helpers/filterCoursesByTitle';
 
 function Courses() {
-  const [coursesList, setCoursesList] = useState([]);
-  const [filteredCoursesList, setFilteredCoursesList] = useState([]);
-
-  const getCourses = async () => {
-    const response = await fetch(API_ROUTES.coursesAll);
-    const courses = await response.json();
-    setCoursesList(courses.result);
-    setFilteredCoursesList(courses.result);
-  };
+  const coursesList = useSelector((state) => state.courses);
+  const [filteredCoursesList, setFilteredCoursesList] = useState(coursesList);
 
   const searchCourseByTitle = (title) => {
     if (title.length > 0) {
@@ -26,8 +20,8 @@ function Courses() {
   };
 
   useLayoutEffect(() => {
-    getCourses();
-  }, []);
+    setFilteredCoursesList(coursesList);
+  }, [coursesList]);
 
   return (
     <>
