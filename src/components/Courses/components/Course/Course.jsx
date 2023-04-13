@@ -1,20 +1,18 @@
 import { useState, useLayoutEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 import { API_ROUTES } from '../../../../constants';
 import getCourseDuration from '../../../../helpers/getCourseDuration';
 import formatCreationDate from '../../../../helpers/formatCreationDate';
 import formatAuthors from '../utils/formatAuthors';
 
+import { getAuthors } from '../../../../store/authors/reducer';
+
 const Course = () => {
   const params = useParams();
+  const authors = useSelector((state) => state.authors);
   const [course, setCourse] = useState();
-  const [authors, setAuthors] = useState([]);
-
-  const getAuthors = async () => {
-    const response = await fetch(API_ROUTES.authorsAll);
-    const authors = await response.json();
-    setAuthors(authors.result);
-  };
 
   const getCourse = async () => {
     const response = await fetch(API_ROUTES.course(params.id));
@@ -23,7 +21,6 @@ const Course = () => {
   };
 
   useLayoutEffect(() => {
-    getAuthors();
     getCourse();
   }, []);
 

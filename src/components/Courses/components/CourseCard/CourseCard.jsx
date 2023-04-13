@@ -1,22 +1,13 @@
-import { useState, useLayoutEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import getCourseDuration from '../../../../helpers/getCourseDuration';
 import formatCreationDate from '../../../../helpers/formatCreationDate';
-import { API_ROUTES } from '../../../../constants';
-import { Link } from 'react-router-dom';
 import formatAuthors from '../utils/formatAuthors';
 
 const CourseCard = ({ course }) => {
-  const [authors, setAuthors] = useState([]);
-
-  const getAuthors = async () => {
-    const response = await fetch(API_ROUTES.authorsAll);
-    const authors = await response.json();
-    setAuthors(authors.result);
-  };
-
-  useLayoutEffect(() => {
-    getAuthors();
-  }, []);
+  const authors = useSelector((state) => state.authors);
 
   return (
     <div className='list-group-item'>
@@ -40,6 +31,10 @@ const CourseCard = ({ course }) => {
       </div>
     </div>
   );
+};
+
+CourseCard.propTypes = {
+  course: PropTypes.object.isRequired,
 };
 
 export default CourseCard;

@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const Input = ({
   type = 'text',
   id,
@@ -26,6 +28,20 @@ const Input = ({
       onChange={onChange}
     />
   );
+};
+
+Input.propTypes = {
+  type: PropTypes.string,
+  id: PropTypes.string,
+  name: PropTypes.string,
+  form: PropTypes.string,
+  value: PropTypes.string,
+  className: PropTypes.string,
+  placeholder: PropTypes.string,
+  minlength: PropTypes.number,
+  maxlength: PropTypes.number,
+  required: PropTypes.bool,
+  onChange: PropTypes.func,
 };
 
 export default Input;

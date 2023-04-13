@@ -1,28 +1,25 @@
-import { useState, useLayoutEffect } from 'react';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 
 import { API_ROUTES } from '../../constants';
+
+import { getAuthors } from '../../store/authors/reducer';
+import { getCourses } from '../../store/courses/reducer';
+
 import getCourseDuration from '../../helpers/getCourseDuration';
 
 const CreateCourseForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const currentAuthors = useSelector((state) => state.authors);
 
   const [selectedAuthors, setSelectedAuthors] = useState([]);
-  const [currentAuthors, setCurrentAuthors] = useState([]);
   const [duration, setDuration] = useState('');
-
-  const getAuthors = async () => {
-    const response = await fetch(API_ROUTES.authorsAll);
-    const authors = await response.json();
-    setCurrentAuthors(authors.result);
-  };
-
-  useLayoutEffect(() => {
-    getAuthors();
-  }, []);
 
   const handleAuthorClick = (authorId) => {
     if (selectedAuthors.includes(authorId)) {
@@ -42,7 +39,7 @@ const CreateCourseForm = () => {
     const newCourseData = {
       title: formData.get('title'),
       description: formData.get('description'),
-      duration: formData.get('duration'),
+      duration: parseInt(formData.get('duration')),
       authors: selectedAuthors,
     };
     const headers = {
@@ -53,9 +50,10 @@ const CreateCourseForm = () => {
       method: 'POST',
       headers: headers,
       body: JSON.stringify(newCourseData),
-    })
-      .then((response) => response.json())
-      .then(() => navigate('/'));
+    }).then(() => {
+      dispatch(getCourses());
+      navigate('/');
+    });
   };
 
   const handleCreateAuthorSubmit = (event) => {
@@ -71,8 +69,9 @@ const CreateCourseForm = () => {
       method: 'POST',
       headers: headers,
       body: JSON.stringify(newAuthorData),
-    }).then((response) => response.json());
-    getAuthors();
+    }).then(() => {
+      dispatch(getAuthors());
+    });
   };
 
   return (

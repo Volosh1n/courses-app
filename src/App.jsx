@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import Header from './components/Header/Header';
 import Courses from './components/Courses/Courses';
@@ -8,12 +9,18 @@ import Course from './components/Courses/components/Course/Course';
 import Register from './components/Register/Register';
 import Login from './components/Login/Login';
 
+import { getCourses } from './store/courses/reducer';
+import { getAuthors } from './store/authors/reducer';
+
 import './App.css';
 
 function App() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    dispatch(getCourses());
+    dispatch(getAuthors());
     if (!localStorage.getItem('token')) {
       navigate('/login');
     }
